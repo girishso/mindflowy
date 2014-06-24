@@ -1,0 +1,45 @@
+#!/bin/zsh
+
+# ------------------------------------------------
+# CONFIG -----------------------------------------
+# ------------------------------------------------
+files_static=(Gemfile README* vim-all)
+#files_static=(Gemfile README* doc/*.md vim-all)
+exclusions=(vendor coverage activesupport public/ckeditor)
+find_extensions=(rb erb scss yml js css feature coffee rake ejs eco)
+
+# ------------------------------------------------
+# GLOBALS ----------------------------------------
+# ------------------------------------------------
+files_to_edit=($files_static)
+
+# ------------------------------------------------
+# MAIN -------------------------------------------
+# ------------------------------------------------
+
+# Push find queries
+for find_extension in $find_extensions
+do
+  # Find all without removing exclusions
+  find_results=`find ./ -iname "*.$find_extension"`
+
+  # Grep -v for each exclusion
+  for exclusion in $exclusions
+  do
+    find_results=`echo $find_results | grep -v $exclusion`
+  done
+
+  # Split the string $find_results on line break to make a new array $find_results
+  find_results=("${(f)find_results}")
+
+  # Concatenate the array onto $files_to_edit
+  for file in $find_results
+  do
+    files_to_edit+=($file)
+  done
+
+done
+
+# Vim all
+vim $files_to_edit
+

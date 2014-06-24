@@ -22,3 +22,7 @@
 #->Prelang (env_variables:dotenv)
 # Ignore .env file so sensitive environment variables are not checked into Git.
 .env
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml

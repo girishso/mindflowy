@@ -14,3 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+#->Prelang (vim_helper:prelang)
+# Ignore all swap files
+.*.swp

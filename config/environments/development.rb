@@ -32,5 +32,6 @@ MindFlowy::Application.configure do
   config.action_dispatch.default_headers = {
     'X-Frame-Options' => 'ALLOWALL'
   }
+  config.react.variant = :development
 end
 

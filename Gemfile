@@ -14,6 +14,8 @@ gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+# gem 'awesome_nested_set'
+gem 'ancestry'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -44,7 +46,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'bundler'
-
+gem 'quiet_assets', group: :development
 gem 'bootstrap-sass', github: 'twbs/bootstrap-sass'
 gem 'bootstrap-sass-extras'
 gem 'devise', github: 'plataformatec/devise'
@@ -57,7 +59,7 @@ gem 'google-analytics-rails'
 gem 'validates_formatting_of'
 
 group :development do
-  gem 'pry-rails'
+  # gem 'pry-rails'
   gem 'better_errors'
 end
 

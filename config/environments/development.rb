@@ -29,6 +29,8 @@ MindFlowy::Application.configure do
 
   #->Prelang
   GA.tracker = "DDDDD"
-
+  config.action_dispatch.default_headers = {
+    'X-Frame-Options' => 'ALLOWALL'
+  }
 end
 

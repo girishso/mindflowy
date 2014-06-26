@@ -1,8 +1,30 @@
 class NodesController < ApplicationController
 
   def index
+    tree = [{
+  title: "howdy",
+  id: 1,
+  children: [
+    {title: "bobby", id: 2, children:[]},
+    {title: "suzie", id: 3, children: [
+      {title: "puppy", id: 4, children: [
+        {title: "dog house", id: 5, children: [
+          {title: "aaaaa", id: 6, children:[]}
+        ]}
+      ]},
+      {title: "cherry tree", id: 7, children:[]}
+    ]}
+  ]
+},
+{
+  title: "NOwdy", children:[], id:8
+}  ]
+
+    puts current_user.nodes.arrange_serializable.to_json
     respond_to do |format|
-      format.json { render json:  current_user.nodes.arrange_serializable.to_json }
+      format.json { render json:  
+                   tree # current_user.nodes.arrange_serializable.to_json 
+      }
     end
   end
 

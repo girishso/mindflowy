@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <meta name="auth_token" content="<%= current_user.authentication_token %>" />
 <meta name="viewport" content="width=device-width, initial-scale=1"/><!-- Prelang: Analytics / Google Analytics -->
     <%= analytics_init if Rails.env.production? %></head>
 <body>

@@ -1,3 +1,28 @@
 <h1>Landings#index</h1>
 <p>Find me in app/views/landings/index.html.erb</p>
 <%= react_component 'ExampleComponent', {name: 'John'} %>
+
+<%
+tree = [{
+  title: "howdy",
+  children: [
+    {title: "bobby"},
+    {title: "suzie", children: [
+      {title: "puppy", children: [
+        {title: "dog house", children: [
+          {title: "aaaaa"}
+        ]}
+      ]},
+      {title: "cherry tree"}
+    ]}
+  ]
+}]
+%>
+
+<div id="tree"/>
+<script>
+console.log('<%= raw tree.to_json %>')
+</script>
+
+<%#= react_component 'TreeNode', {node: tree } %>
+

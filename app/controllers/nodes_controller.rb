@@ -23,17 +23,19 @@ class NodesController < ApplicationController
     puts current_user.nodes.arrange_serializable.to_json
     respond_to do |format|
       format.json { render json:  
-                   tree # current_user.nodes.arrange_serializable.to_json 
+                   current_user.nodes.arrange_serializable.to_json 
       }
     end
   end
 
   def create
-    node = Node.new node_params
+    node = Node.find params[:parent_id]
+    child = node.children.new
+    child.user_id = current_user.id
 
-    if node.save
+    if child.save
       respond_to do |format|
-        format.json { render json: current_user.nodes.arrange_serializable.to_json, status: 200}
+        format.json { render json: {newNodeId: child.id, data: current_user.nodes.arrange_serializable.to_json}, status: 200}
       end
     else
       respond_to do |format|

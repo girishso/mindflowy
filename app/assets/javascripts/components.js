@@ -1,3 +1,2 @@
 // app/assets/javascripts/components.js
 //= require_tree ./components
-//= require treeview

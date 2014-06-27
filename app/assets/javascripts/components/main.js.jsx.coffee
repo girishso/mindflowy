@@ -2,7 +2,7 @@
 
 focus_node = null
 
-@ExampleComponent = React.createClass
+@TreeView = React.createClass
   getInitialState: ->
     return {data: []}
 
@@ -132,13 +132,6 @@ focus_node = null
 
 
 @TreeNode = React.createClass
-  componentDidMount: ->
-
-  handleKeyDown: (e) ->
-
-
-
-
   render: ->
     if (this.props.node.children.length > 0)
       childNodes = this.props.node.children.map (node) ->
@@ -148,7 +141,6 @@ focus_node = null
       `<li className="treenode">
         <div className="node editable" data-id={this.props.node.id} contentEditable>
         {this.props.node.title}
-        <em> {this.props.node.id} </em>
         </div>
           <ul>
             {childNodes}

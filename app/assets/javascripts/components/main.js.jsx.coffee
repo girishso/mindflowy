@@ -22,10 +22,10 @@ focus_node = null
       $this = $(this)
       if $this.data('before') isnt $this.html()
         $this.data('before', $this.html())
-        id = $this.attr('data-id')
+        node_id = $this.attr('data-id')
         $.ajax
           type: "PUT"
-          url: "/nodes/#{id}"
+          url: "/nodes/#{node_id}"
           data:
             node:
               title: $this.html()
@@ -64,6 +64,44 @@ focus_node = null
           console.log "post", focus_node
           $component.setState data: eval(response.data)
 
+    else if e.which == 9 # tab
+      e.preventDefault()
+      focus_node = node_id
+      if e.shiftKey
+        x = $target.parentsUntil "ul.treeview"
+        parent_nodes = x.filter("li.treenode")
+
+        if parent_nodes.length >= 3
+          newParent = $(parent_nodes[2])
+          newParentId = newParent.find('.editable').first().attr 'data-id'
+        else
+          # root
+          newParentId = null
+
+        @update_node(node_id, newParentId)
+
+      else
+        x = $target.parents('li.treenode').first().prev()
+        if x.hasClass "treenode"
+          ed = x.find('.editable')
+          newParentId = ed.attr('data-id')
+
+          @update_node(node_id, newParentId)
+        else
+          return
+
+  update_node: (node_id, newParentId) ->
+    $component = this
+    $.ajax(
+      type: "PUT"
+      url: "/nodes/#{node_id}"
+      data:
+        node:
+          title: $(".editable[data-id='" + node_id + "'] span:first").html()
+          parent_id: newParentId
+    ).done (response) ->
+      $component.setState data: response
+
   next_node: (id) ->
       all = $('.editable').map ->
         $(this).attr "data-id"
@@ -87,7 +125,7 @@ focus_node = null
     `<div>
       <ul className="treeview" onKeyDown={this.handleKeyDown}>
       {this.state.data.map(function(node) {
-        return <TreeNode node={node} key={node.id} handleChange={this.handleChange} />
+        return <TreeNode node={node} key={node.id} />
       })}
       </ul>
     </div>`
@@ -95,40 +133,8 @@ focus_node = null
 
 @TreeNode = React.createClass
   componentDidMount: ->
-    #@props.handleChange(2)
 
   handleKeyDown: (e) ->
-    if e.which == 9 # tab
-      focus_node = node_id
-      if e.shiftKey
-        e.preventDefault()
-        $this = $(this.getDOMNode())
-        x = $this.parentsUntil "ul.treeview"
-        parent_nodes = x.filter("li.treenode")
-
-        if parent_nodes.length >= 3
-          newParent = $(parent_nodes[2])
-          newParentId = newParent.find('.editable').first().attr 'data-id'
-        else
-          # root
-          newParentId = null
-
-        fb.child(node_id).update
-          title: $this.html()
-          parent: newParentId
-
-      else
-        e.preventDefault()
-        $this = $(this.getDOMNode())
-        x = $this.parents('li.treenode').first().prev()
-        if x.hasClass "treenode"
-          ed = x.find('.editable')
-          newParentId = ed.attr('data-id')
-          fb.child(node_id).update
-            title: $this.html()
-            parent: newParentId
-        else
-          return
 
 
 
@@ -142,6 +148,7 @@ focus_node = null
       `<li className="treenode">
         <div className="node editable" data-id={this.props.node.id} contentEditable>
         {this.props.node.title}
+        <em> {this.props.node.id} </em>
         </div>
           <ul>
             {childNodes}

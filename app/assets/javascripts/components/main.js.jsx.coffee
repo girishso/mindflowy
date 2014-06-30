@@ -13,25 +13,6 @@ focus_node = null
       that.setState data: d
     )
 
-    $(".treeview").on "focus", ".editable", ->
-      $this = $(this)
-      $this.data('before', $this.html())
-      return $this
-
-    $(".treeview").on "blur", ".editable", ->
-      $this = $(this)
-      if $this.data('before') isnt $this.html()
-        $this.data('before', $this.html())
-        node_id = $this.attr('data-id')
-        $.ajax
-          type: "PUT"
-          url: "/nodes/#{node_id}"
-          data:
-            node:
-              title: $this.html()
-      return $this
-
-
   componentDidUpdate: ->
     console.log "componentDidUpdate", focus_node
     if focus_node?
@@ -39,7 +20,6 @@ focus_node = null
       focus_node = null
 
   handleKeyDown: (e) ->
-    console.log e.which, e.target
     $target = $(e.target)
     node_id = $target.attr("data-id")
     $component = this
@@ -55,14 +35,14 @@ focus_node = null
       $(".editable[data-id='#{dest}']").focus()
 
     else if e.which == 13 # enter
-        e.preventDefault()
-        x = $target.parentsUntil "ul.treeview"
-        parent_id = $(x[2]).find(".editable").first().attr("data-id")
+      e.preventDefault()
+      x = $target.parentsUntil "ul.treeview"
+      parent_id = $(x[2]).find(".editable").first().attr("data-id")
 
-        $.post "/nodes", {parent_id: parent_id}, (response) ->
-          focus_node = response.newNodeId
-          console.log "post", focus_node
-          $component.setState data: eval(response.data)
+      $.post "/nodes", {parent_id: parent_id}, (response) ->
+        focus_node = response.newNodeId
+        console.log "post", focus_node
+        $component.setState data: eval(response.data)
 
     else if e.which == 9 # tab
       e.preventDefault()
@@ -97,29 +77,27 @@ focus_node = null
       url: "/nodes/#{node_id}"
       data:
         node:
-          title: $(".editable[data-id='" + node_id + "'] span:first").html()
+          title: $(".editable[data-id='#{node_id}']").html()
           parent_id: newParentId
     ).done (response) ->
+      console.log response
       $component.setState data: response
 
   next_node: (id) ->
-      all = $('.editable').map ->
-        $(this).attr "data-id"
-      ix = $.inArray id, all
-      if ix == all.length - 1
-        ix = -1
-      all[ix+1]
+    all = $('.editable').map ->
+      $(this).attr "data-id"
+    ix = $.inArray id, all
+    if ix == all.length - 1
+      ix = -1
+    all[ix+1]
 
   prev_node: (id) ->
-      all = $('.editable').map ->
-        $(this).attr "data-id"
-      ix = $.inArray id, all
-      if ix == 0
-        ix = all.length
-      all[ix-1]
-
-  handleChange: (id) ->
-    console.log x
+    all = $('.editable').map ->
+      $(this).attr "data-id"
+    ix = $.inArray id, all
+    if ix == 0
+      ix = all.length
+    all[ix-1]
 
   render: ->
     `<div>
@@ -132,6 +110,16 @@ focus_node = null
 
 
 @TreeNode = React.createClass
+  onChange: (e) ->
+    console.log "in on change", e
+    $.ajax
+      type: "PUT"
+      url: "/nodes/#{e.target.node_id}"
+      data:
+        node:
+          title: e.target.value
+
+
   render: ->
     if (this.props.node.children.length > 0)
       childNodes = this.props.node.children.map (node) ->
@@ -139,12 +127,43 @@ focus_node = null
 
     return (
       `<li className="treenode">
-        <div className="node editable" data-id={this.props.node.id} contentEditable>
-        {this.props.node.title}
-        </div>
+        <ContentEditable html={this.props.node.title} node_id={this.props.key} onChange={this.onChange} />
           <ul>
             {childNodes}
           </ul>
       </li>`
     )
 
+ContentEditable = React.createClass(
+  render: ->
+    `<div
+         className="node editable"
+         data-id={this.props.node_id}
+            onBlur={this.emitChange}
+            onFocus={this.handleFocus}
+            contentEditable
+            onChange={this.props.onChange}
+            dangerouslySetInnerHTML={{__html: this.props.html}}>
+      </div>
+      {this.props.node_id}
+    `
+
+  handleFocus: (e) ->
+    $this = $(e.target)
+    $this.data('before', $this.html())
+
+  shouldComponentUpdate: (nextProps) ->
+    nextProps.html isnt @getDOMNode().innerHTML
+
+  emitChange: ->
+    $this = $(@getDOMNode())
+    html = $this.html()
+
+    if @props.onChange and html isnt $this.data('before')
+      @props.onChange target:
+        value: html
+        node_id: $this.attr('data-id')
+
+    $this.data('before', html)
+    return
+)

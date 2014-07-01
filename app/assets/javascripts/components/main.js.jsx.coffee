@@ -16,7 +16,7 @@ focus_node = null
   componentDidUpdate: ->
     console.log "componentDidUpdate", focus_node
     if focus_node?
-      $("[data-id='#{focus_node}']").find(".editable").focus()
+      $("[data-id='#{focus_node}']").children(".editable").focus()
       focus_node = null
 
   handleKeyDown: (e) ->
@@ -38,7 +38,7 @@ focus_node = null
     else if e.which == 13 # enter
       e.preventDefault()
       x = $target.parentsUntil "ul.treeview"
-      parent_id = $(x[2]).find(".treenode").first().attr("data-id")
+      parent_id = $(x[2]).attr("data-id")
 
       next_sibling = $("li[data-id=#{node_id}] + li")
       if next_sibling.length
@@ -62,22 +62,45 @@ focus_node = null
         if parent_nodes.length >= 3
           newParent = $(parent_nodes[2])
           newParentId = newParent.first().attr 'data-id'
+        else if parent_nodes.length == 1
+          # shiftkey pressed on root node
+          return
         else
           # root
           newParentId = null
 
-        @update_node(node_id, newParentId)
+        @update_node(node_id, newParentId, @newPosition(node_id, newParentId))
 
       else
         x = $target.parents('li.treenode').first().prev()
         if x.hasClass "treenode"
           newParentId = x.attr('data-id')
 
-          @update_node(node_id, newParentId)
+          @update_node(node_id, newParentId, @newPosition(node_id, newParentId))
         else
           return
 
-  update_node: (node_id, newParentId) ->
+  newPosition: (node_id, parent_id) ->
+    if parent_id?
+      prev_sibling = $("[data-id=#{parent_id}] > ul > li:last-child")
+      position = parseFloat prev_sibling.attr("data-position")
+      if isNaN position
+        position = 1.0
+      else
+        position += 200.0
+    else
+      prev_sibling = $("[data-id=#{node_id}]").parents(".treenode")
+      prev_sibling_id = prev_sibling.attr("data-id")
+      prev_sibling_position = parseFloat prev_sibling.attr("data-position")
+      next_sibling_position = parseFloat $("[data-id=#{prev_sibling_id}] + li").attr("data-position")
+      if isNaN next_sibling_position
+        position = prev_sibling_position + 200
+      else
+        position = (prev_sibling_position + next_sibling_position) / 2
+
+    position
+
+  update_node: (node_id, newParentId, newPosition) ->
     $component = this
     $.ajax(
       type: "PUT"
@@ -86,6 +109,7 @@ focus_node = null
         node:
           title: $("[data-id='#{node_id}']").find(".editable").html()
           parent_id: newParentId
+          position: newPosition
     ).done (response) ->
       console.log response
       $component.setState data: response

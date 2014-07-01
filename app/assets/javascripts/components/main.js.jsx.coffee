@@ -9,12 +9,10 @@ focus_node = null
   componentDidMount: ->
     that = this
     $.getJSON("/nodes", null, (d) ->
-      console.log d
       that.setState data: d
     )
 
   componentDidUpdate: ->
-    console.log "componentDidUpdate", focus_node
     if focus_node?
       $("[data-id='#{focus_node}']").children(".editable").focus()
       focus_node = null
@@ -49,7 +47,6 @@ focus_node = null
 
       $.post "/nodes", {parent_id: parent_id, position: newPosition}, (response) ->
         focus_node = response.newNodeId
-        console.log "post", focus_node
         $component.setState data: eval(response.data)
 
     else if e.which == 9 # tab
@@ -111,7 +108,6 @@ focus_node = null
           parent_id: newParentId
           position: newPosition
     ).done (response) ->
-      console.log response
       $component.setState data: response
 
   next_node: (id) ->
@@ -142,7 +138,6 @@ focus_node = null
 
 @TreeNode = React.createClass
   onChange: (e) ->
-    console.log "in on change", e
     $.ajax
       type: "PUT"
       url: "/nodes/#{e.target.node_id}"

@@ -127,7 +127,11 @@ focus_node = null
 
     return (
       `<li className="treenode">
-        <ContentEditable html={this.props.node.title} node_id={this.props.key} onChange={this.onChange} />
+        <ContentEditable 
+          html={this.props.node.title}
+          node_id={this.props.key}
+          position={this.props.node.position}
+          onChange={this.onChange} />
           <ul>
             {childNodes}
           </ul>
@@ -139,6 +143,7 @@ ContentEditable = React.createClass(
     `<div
          className="node editable"
          data-id={this.props.node_id}
+         data-position={this.props.position}
             onBlur={this.emitChange}
             onFocus={this.handleFocus}
             contentEditable

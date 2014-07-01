@@ -165,19 +165,23 @@ focus_node = null
 
 ContentEditable = React.createClass(
   render: ->
+    html = this.props.html
+    html = "&nbsp;" if html is null
     `<div
          className="node editable"
             onBlur={this.emitChange}
             onFocus={this.handleFocus}
             contentEditable
             onChange={this.props.onChange}
-            dangerouslySetInnerHTML={{__html: this.props.html}}>
+            dangerouslySetInnerHTML={{__html: html}}>
       </div>
     `
 
   handleFocus: (e) ->
     $this = $(e.target)
-    $this.data('before', $this.html())
+    html = $this.html()
+    @selectText(e.target) if html is "&nbsp;"
+    $this.data('before', html)
 
   shouldComponentUpdate: (nextProps) ->
     nextProps.html isnt @getDOMNode().innerHTML
@@ -193,4 +197,20 @@ ContentEditable = React.createClass(
 
     $this.data('before', html)
     return
+
+  selectText: (element) ->
+    doc = document
+    text = element
+    range = undefined
+    selection = undefined
+    if doc.body.createTextRange #ms
+      range = doc.body.createTextRange()
+      range.moveToElementText text
+      range.select()
+    else if window.getSelection #all others
+      selection = window.getSelection()
+      range = doc.createRange()
+      range.selectNodeContents text
+      selection.removeAllRanges()
+      selection.addRange range
 )

@@ -16,29 +16,29 @@ focus_node = null
   componentDidUpdate: ->
     console.log "componentDidUpdate", focus_node
     if focus_node?
-      $(".editable[data-id='#{focus_node}']").focus()
+      $("[data-id='#{focus_node}']").find(".editable").focus()
       focus_node = null
 
   handleKeyDown: (e) ->
     $target = $(e.target)
-    node_id = $target.attr("data-id")
-    position = parseFloat $target.attr("data-position")
+    node_id = $target.parent("li").attr("data-id")
+    position = parseFloat $target.parent("li").attr("data-position")
     $component = this
 
     if e.which == 38 # up
       e.preventDefault()
       dest = @prev_node(node_id)
-      $(".editable[data-id='#{dest}']").focus()
+      $("[data-id='#{dest}']").find(".editable").focus()
 
     else if e.which == 40 # down
       e.preventDefault()
       dest = @next_node(node_id)
-      $(".editable[data-id='#{dest}']").focus()
+      $("[data-id='#{dest}']").find(".editable").focus()
 
     else if e.which == 13 # enter
       e.preventDefault()
       x = $target.parentsUntil "ul.treeview"
-      parent_id = $(x[2]).find(".editable").first().attr("data-id")
+      parent_id = $(x[2]).find(".treenode").first().attr("data-id")
 
       next_sibling = $("li[data-id=#{node_id}] + li")
       if next_sibling.length
@@ -61,7 +61,7 @@ focus_node = null
 
         if parent_nodes.length >= 3
           newParent = $(parent_nodes[2])
-          newParentId = newParent.find('.editable').first().attr 'data-id'
+          newParentId = newParent.first().attr 'data-id'
         else
           # root
           newParentId = null
@@ -71,8 +71,7 @@ focus_node = null
       else
         x = $target.parents('li.treenode').first().prev()
         if x.hasClass "treenode"
-          ed = x.find('.editable')
-          newParentId = ed.attr('data-id')
+          newParentId = x.attr('data-id')
 
           @update_node(node_id, newParentId)
         else
@@ -85,14 +84,14 @@ focus_node = null
       url: "/nodes/#{node_id}"
       data:
         node:
-          title: $(".editable[data-id='#{node_id}']").html()
+          title: $("[data-id='#{node_id}']").find(".editable").html()
           parent_id: newParentId
     ).done (response) ->
       console.log response
       $component.setState data: response
 
   next_node: (id) ->
-    all = $('.editable').map ->
+    all = $('.treenode').map ->
       $(this).attr "data-id"
     ix = $.inArray id, all
     if ix == all.length - 1
@@ -100,7 +99,7 @@ focus_node = null
     all[ix+1]
 
   prev_node: (id) ->
-    all = $('.editable').map ->
+    all = $('.treenode').map ->
       $(this).attr "data-id"
     ix = $.inArray id, all
     if ix == 0
@@ -138,8 +137,6 @@ focus_node = null
       `<li className="treenode" data-id={node.id} data-position={node.position}>
         <ContentEditable 
           html={node.title}
-          node_id={this.props.key}
-          position={node.position}
           onChange={this.onChange} />
 
         <em>id: {node.id}</em>
@@ -154,8 +151,6 @@ ContentEditable = React.createClass(
   render: ->
     `<div
          className="node editable"
-         data-id={this.props.node_id}
-         data-position={this.props.position}
             onBlur={this.emitChange}
             onFocus={this.handleFocus}
             contentEditable

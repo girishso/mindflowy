@@ -157,9 +157,6 @@ focus_node = null
         <ContentEditable
           html={node.title}
           onChange={this.onChange} />
-
-        <em>id: {node.id}</em>
-        <em className="position">{node.position}</em>
           <ul>
             {childNodes}
           </ul>

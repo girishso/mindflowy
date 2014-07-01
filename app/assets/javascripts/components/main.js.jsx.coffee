@@ -28,12 +28,12 @@ focus_node = null
     if e.which == 38 # up
       e.preventDefault()
       dest = @prev_node(node_id)
-      $("[data-id='#{dest}']").find(".editable").focus()
+      $("[data-id='#{dest}']").children(".editable").focus()
 
     else if e.which == 40 # down
       e.preventDefault()
       dest = @next_node(node_id)
-      $("[data-id='#{dest}']").find(".editable").focus()
+      $("[data-id='#{dest}']").children(".editable").focus()
 
     else if e.which == 13 # enter
       e.preventDefault()
@@ -159,7 +159,7 @@ focus_node = null
     node = @props.node
     return (
       `<li className="treenode" data-id={node.id} data-position={node.position}>
-        <ContentEditable 
+        <ContentEditable
           html={node.title}
           onChange={this.onChange} />
 
@@ -197,7 +197,7 @@ ContentEditable = React.createClass(
     if @props.onChange and html isnt $this.data('before')
       @props.onChange target:
         value: html
-        node_id: $this.attr('data-id')
+        node_id: $this.parent().attr("data-id")
 
     $this.data('before', html)
     return

@@ -45,6 +45,7 @@ class NodesController < ApplicationController
   def destroy
     node = Node.find(params[:id])
     node.destroy
+    Node.ensure_node_must_exist_for_user(current_user.id)
 
     respond_to do |format|
       format.json { head :no_content }

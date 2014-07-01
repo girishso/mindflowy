@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
 
   has_many :nodes
+  after_create :create_default_node
+
+  def create_default_node
+    Node.ensure_node_must_exist_for_user(self.id)
+  end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

@@ -1,10 +1,10 @@
 class NodesController < ApplicationController
 
   def index
-    puts current_user.nodes.arrange_serializable.to_json
+    puts current_user.nodes.arrange_serializable(order: :position).to_json
     respond_to do |format|
       format.json { render json:
-        current_user.nodes.arrange_serializable.to_json
+        current_user.nodes.arrange_serializable(order: :position).to_json
       }
     end
   end
@@ -12,20 +12,20 @@ class NodesController < ApplicationController
   def create
     if params[:parent_id].present?
       node = Node.find params[:parent_id]
-      child = node.children.new
+      child = node.children.new position: params[:position]
     else
-      child = Node.new
+      child = Node.new position: params[:position]
     end
 
     child.user_id = current_user.id
 
     if child.save
       respond_to do |format|
-        format.json { render json: {newNodeId: child.id, data: current_user.nodes.arrange_serializable.to_json}, status: 200}
+        format.json { render json: {newNodeId: child.id, data: current_user.nodes.arrange_serializable(order: :position).to_json}, status: 200}
       end
     else
       respond_to do |format|
-        format.json { render json: current_user.nodes.arrange_serializable.to_json, status: :unprocessable_entity }
+        format.json { render json: current_user.nodes.arrange_serializable(order: :position).to_json, status: :unprocessable_entity }
       end
     end
   end
@@ -35,9 +35,9 @@ class NodesController < ApplicationController
 
     respond_to do |format|
       if node.update(node_params)
-        format.json { render json: current_user.nodes.arrange_serializable.to_json, status: 200}
+        format.json { render json: current_user.nodes.arrange_serializable(order: :position).to_json, status: 200}
       else
-        format.json { render json: current_user.nodes.arrange_serializable.to_json, status: :unprocessable_entity }
+        format.json { render json: current_user.nodes.arrange_serializable(order: :position).to_json, status: :unprocessable_entity }
       end
     end
   end

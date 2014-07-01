@@ -22,6 +22,7 @@ focus_node = null
   handleKeyDown: (e) ->
     $target = $(e.target)
     node_id = $target.attr("data-id")
+    position = parseFloat $target.attr("data-position")
     $component = this
 
     if e.which == 38 # up
@@ -39,7 +40,14 @@ focus_node = null
       x = $target.parentsUntil "ul.treeview"
       parent_id = $(x[2]).find(".editable").first().attr("data-id")
 
-      $.post "/nodes", {parent_id: parent_id}, (response) ->
+      next_sibling = $("li[data-id=#{node_id}] + li")
+      if next_sibling.length
+        next_sibling_position = parseFloat next_sibling.attr("data-position")
+        newPosition = (position + next_sibling_position) / 2
+      else
+        newPosition = position + 200
+
+      $.post "/nodes", {parent_id: parent_id, position: newPosition}, (response) ->
         focus_node = response.newNodeId
         console.log "post", focus_node
         $component.setState data: eval(response.data)
@@ -125,13 +133,17 @@ focus_node = null
       childNodes = this.props.node.children.map (node) ->
         return `<TreeNode node={node} key={node.id} />`
 
+    node = @props.node
     return (
-      `<li className="treenode">
+      `<li className="treenode" data-id={node.id} data-position={node.position}>
         <ContentEditable 
-          html={this.props.node.title}
+          html={node.title}
           node_id={this.props.key}
-          position={this.props.node.position}
+          position={node.position}
           onChange={this.onChange} />
+
+        <em>id: {node.id}</em>
+        <em className="position">{node.position}</em>
           <ul>
             {childNodes}
           </ul>
@@ -150,7 +162,6 @@ ContentEditable = React.createClass(
             onChange={this.props.onChange}
             dangerouslySetInnerHTML={{__html: this.props.html}}>
       </div>
-      {this.props.node_id}
     `
 
   handleFocus: (e) ->

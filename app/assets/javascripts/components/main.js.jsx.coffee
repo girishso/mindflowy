@@ -66,7 +66,7 @@ focus_node = null
           # root
           newParentId = null
 
-        @update_node(node_id, newParentId, @newPosition(node_id, newParentId))
+        @update_node(node_id, newParentId, @newPosition(node_id, newParentId, true))
 
       else
         x = $target.parents('li.treenode').first().prev()
@@ -77,8 +77,8 @@ focus_node = null
         else
           return
 
-  newPosition: (node_id, parent_id) ->
-    if parent_id?
+  newPosition: (node_id, parent_id, shiftKey = false) ->
+    if parent_id? and !shiftKey
       prev_sibling = $("[data-id=#{parent_id}] > ul > li:last-child")
       position = parseFloat prev_sibling.attr("data-position")
       if isNaN position
@@ -157,6 +157,7 @@ focus_node = null
         <ContentEditable
           html={node.title}
           onChange={this.onChange} />
+          <div><em>id: {node.id}, position: {node.position} </em></div>
           <ul>
             {childNodes}
           </ul>

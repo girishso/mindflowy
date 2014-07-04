@@ -73,7 +73,7 @@ content: "▼";
 .modal {
   background-color: #000084;
 }
-.modal .page-header h1 {
+.form-signin .page-header h1 {
   font-size: 1.2em;
   margin: 0 !important;
 }
@@ -109,4 +109,7 @@ border: 1px solid #00aa8e;
 -webkit-border-radius: 0;
 -moz-border-radius: 0;
 border-radius: 0;
+}
+.close {
+  color: #fff !important;
 }

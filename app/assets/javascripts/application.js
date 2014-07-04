@@ -18,4 +18,5 @@
 //= require bootstrap-386
 //= require bootstrap-dropdown
 //= require bootstrap-modal
+//= require bootstrap-alert
 //= require components

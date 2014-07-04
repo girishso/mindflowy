@@ -1,4 +1,3 @@
-<div id="login" class="" tabindex="0">
 <%= form_for(:user, as: :user, url: session_path(:user), html: {class: "form-signin form-user", id: "sign_in_form"}) do |f| %>
     <%= devise_error_messages! %>
 
@@ -41,5 +40,4 @@
   </div>
 
 <% end %>
-</div>
 

@@ -2,42 +2,34 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.node, .tree-view {
-  -moz-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  -ms-transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  border-radius: 3px;
-  cursor: asset_url(cursor.cur);
+.jumbotron {
+  margin: 80px 0;
+  text-align: center;
+}
+.jumbotron h1 {
+  font-size: 100px;
+  line-height: 1;
+}
+.jumbotron h2 {
+  font-size: 50px;
+  line-height: 1;
+  color: #FEFE54;
 }
 
-.node:hover {
-  background-color: rgb(220, 245, 243);
-  cursor: pointer;
+.jumbotron .lead {
+  font-size: 24px;
+  line-height: 1.25;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
 }
 
-.info, .node, .tree-view {
-  padding: 2px 10px 2px 5px;
-  font: 14px Helvetica, Arial, sans-serif;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+/* Supporting marketing content */
+.marketing {
+  margin: 60px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
 }
 
-.tree-view_arrow {
-  -moz-transition: all 0.1s;
-  -o-transition: all 0.1s;
-  -ms-transition: all 0.1s;
-  -webkit-transition: all 0.1s;
-  transition: all 0.1s;
-}
-
-.tree-view_arrow-empty {
-  color: yellow;
-}
-
-.position {
-  padding-left: 20px;
-}

@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require react
 //= require react_ujs
-//= require bootstrap-386
 //= require bootstrap-dropdown
 //= require bootstrap-modal
 //= require bootstrap-alert

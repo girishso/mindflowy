@@ -45,7 +45,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">MindFlowy</a>
+          <a class="brand" href="/">MindFlowy</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -103,8 +103,7 @@
 
             <div class="form-group">
                 <%= f.check_box :remember_me %>
-                &nbsp;
-                <%= f.label :remember_me, "Remember Me", class: "control-label col-md-4" %>
+                <%= f.label :remember_me, " Remember Me", class: "control-label col-md-4" %>
             </div>
 
             <br/>
@@ -127,7 +126,6 @@
 
         <div id="signup" class="modal hide fade" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <%= form_for(:user, as: :user, url: registration_path(:user), html: {class: "form-signin form-user"}) do |f| %>
-          <%= devise_error_messages! %>
 
           <div class="page-header">
             <h1 class="form-signin-heading">Please sign up</h1>

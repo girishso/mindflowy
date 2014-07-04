@@ -86,7 +86,7 @@ input[type="checkbox"]+label:before {
     padding-left: 18px;
 }
 input[type="checkbox"]:checked + label:before {
-    content: "[X]";
+    content: "[X]"!important;
     height:17px;
 }
 

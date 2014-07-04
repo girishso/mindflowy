@@ -1,4 +1,4 @@
-<%= form_for(:user, as: :user, url: session_path(:user), html: {class: "form-signin form-user", id: "sign_in_form"}) do |f| %>
+<%= form_for(:user, as: :user, url: session_path(:user), html: {class: "form-signin form-user"}) do |f| %>
     <%= devise_error_messages! %>
 
   <div class="page-header">
@@ -20,9 +20,8 @@
   </div>
 
     <div class="form-group">
-        <%= f.check_box :remember_me %>
-        &nbsp;
-        <%= f.label :remember_me, "Remember Me", class: "control-label col-md-4" %>
+        <%= f.check_box :remember_me, id: "remember" %>
+        <%= f.label :remember_me, " Remember Me", class: "control-label col-md-4", for: "remember" %>
     </div>
 
     <br/>

@@ -9,25 +9,34 @@
 * compiled file, but it's generally better to create a new file per style scope.
 *
 *= require_self
-*= require_tree .
+*= require bootstrap
+*= require bootstrap-responsive
+*= require font-awesome
 */
-@import "bootstrap_configuration";
 
-@import "bootstrap";
+/*li:before {*/
+  /*content: "\2022"*/
+/*}*/
 
-//->Prelang (ui_framework:twitter_bootstrap)
-
-// Give everything in 'yield' margin to separate it.
-.yield {
-  margin: 30px;
+.treeview li {
+  /*list-style-type:circle !important;*/
+  background: asset_url("circle.png") no-repeat left 7px;
+  line-height: 22px !important;
+  font-size: 18px;
 }
 
-// Constrain forms for models (scaffolded models) so they aren't full page width.
-.form-model {
-  max-width: 750px;
+.node {
+  margin-left: 18px;
 }
 
-//->Prelang (user_login:devise)
-.form-user {
-  max-width: 450px;
+[contenteditable="true"]:focus {
+  background-color: #bbbbbb;
+border: 0;
+height: 20px;
+padding: 0 0;
+font-size: 18px;
+line-height: 27px;
+color: #000000;
+vertical-align: middle;
+border-bottom: 2px solid #000000;
 }

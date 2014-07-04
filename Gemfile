@@ -2,13 +2,14 @@ source 'https://rubygems.org'
 ruby "2.1.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails'#, '4.0.4'
 
 group :development do
   gem 'meta_request'
 end
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
+gem "font-awesome-rails"
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -54,8 +55,8 @@ end
 # gem 'debugger', group: [:development, :test]
 gem 'bundler'
 gem 'quiet_assets', group: :development
-gem 'bootstrap-sass', github: 'twbs/bootstrap-sass'
-gem 'bootstrap-sass-extras'
+#gem 'bootstrap-sass', github: 'twbs/bootstrap-sass'
+#gem 'bootstrap-sass-extras'
 gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth'
 gem 'omniauth-facebook'

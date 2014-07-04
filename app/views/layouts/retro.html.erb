@@ -51,32 +51,135 @@
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right pull-right">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
+                <% if user_signed_in? %>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Welcome, <%= current_user.email %>
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Edit Account", edit_user_registration_path %></li>
+                      <li class="divider"></li>
+                      <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+                    </ul>
+                <% else %>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#login" data-toggle="modal">Sign in...</a></li>
+                    <li><%= link_to "Sign in with Facebook", "/accounts/auth/facebook" %></li>
+                    <li><a href="#signup" data-toggle="modal">Sign up...</a></li>
+                  </ul>
+                <% end %>
               </li>
             </ul>
-            <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="Email">
-              <input class="span2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
 
     <div class="container">
+      <% unless user_signed_in? %>
+        <div id="login" class="modal hide fade" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <%= form_for(:user, as: :user, url: session_path(:user), html: {class: "form-signin form-user", id: "sign_in_form"}) do |f| %>
 
+          <div class="page-header">
+            <h1 class="form-signin-heading">Please sign in</h1>
+          </div>
+          <div class="form-group">
+            <%= f.label :login, "Username or Email", class: "control-label col-md-4" %>
+            <div class="col-md-8">
+              <%= f.text_field :login, class: "text-field input-block-level form-control", html: {spellcheck: "false"} %>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <%= f.label :password, class: "control-label col-md-4" %>
+            <div class="col-md-8">
+              <%= f.password_field :password, class: "text-field input-block-level form-control", html: {autocomplete: "off"} %>
+            </div>
+          </div>
+
+            <div class="form-group">
+                <%= f.check_box :remember_me %>
+                &nbsp;
+                <%= f.label :remember_me, "Remember Me", class: "control-label col-md-4" %>
+            </div>
+
+            <br/>
+          <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+              <%= f.submit "Login", class: "btn btn-primary btn-large" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+              <%= link_to "Forgot your password?", new_password_path(:user) %><br />
+              <%= link_to "Sign in with Facebook", "/accounts/auth/facebook" %><br />
+            </div>
+          </div>
+
+        <% end %>
+        </div>
+
+
+        <div id="signup" class="modal hide fade" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <%= form_for(:user, as: :user, url: registration_path(:user), html: {class: "form-signin form-user"}) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="page-header">
+            <h1 class="form-signin-heading">Please sign up</h1>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :username, class: "control-label col-md-4" %>
+            <div class="col-md-8">
+              <%= f.text_field :username, class: "text-field input-block-level form-control", html: {spellcheck: "false"} %>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <%= f.label :email, class: "control-label col-md-4" %>
+            <div class="col-md-8">
+              <%= f.email_field :email, class: "text-field input-block-level form-control", html: {spellcheck: "false"} %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password, class: "control-label col-md-4" %>
+            <div class="col-md-8">
+              <%= f.password_field :password, class: "text-field input-block-level form-control", html: {autocomplete: "off"} %>
+            </div>
+          </div>
+             
+          <div class="form-group">
+            <%= f.label :password_confirmation, "Password Confirmation", class: "control-label col-md-4" %>
+            <div class="col-md-8">
+              <%= f.password_field :password_confirmation, class: "text-field input-block-level form-control", html: {autocomplete: "off"} %>
+            </div>
+          </div>
+             
+          <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+              <%= f.submit "Sign Up", class: "btn btn-primary btn-large" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+              <%= link_to "Sign in with Facebook", "/accounts/auth/facebook" %><br />
+            </div>
+          </div>
+
+        <% end %>
+        </div>
+      <% end %>
+      <%#= bootstrap_flash %>
       <%= yield %>
+       <hr>
       <footer>
         <p>&copy; Cube Root Software 2014</p>
       </footer>

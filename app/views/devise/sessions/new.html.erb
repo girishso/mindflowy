@@ -1,44 +1,45 @@
-<div class="page-header">
-  <h1><%=t ".title", default: "Login" %></h1>
-</div>
+<div id="login" class="" tabindex="0">
+<%= form_for(:user, as: :user, url: session_path(:user), html: {class: "form-signin form-user", id: "sign_in_form"}) do |f| %>
+    <%= devise_error_messages! %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form-horizontal form-user"}) do |f| %>
-                                                                                                                                        
-  
+  <div class="page-header">
+    <h1 class="form-signin-heading">Please sign in</h1>
+  </div>
   <div class="form-group">
     <%= f.label :login, "Username or Email", class: "control-label col-md-4" %>
     <div class="col-md-8">
-      <%= f.text_field :login, class: "text-field form-control", html: {spellcheck: "false"} %>
+      <%= f.text_field :login, class: "text-field input-block-level form-control", html: {spellcheck: "false"} %>
     </div>
   </div>
-  
+
 
   <div class="form-group">
     <%= f.label :password, class: "control-label col-md-4" %>
     <div class="col-md-8">
-      <%= f.password_field :password, class: "text-field form-control", html: {autocomplete: "off"} %>
+      <%= f.password_field :password, class: "text-field input-block-level form-control", html: {autocomplete: "off"} %>
     </div>
   </div>
-                                                                                                                                        
-  <% if devise_mapping.rememberable? -%>
+
     <div class="form-group">
-      <%= f.label :remember_me, "Remember Me", class: "control-label col-md-4" %>
-      <div class="col-md-8">
         <%= f.check_box :remember_me %>
-      </div>
+        &nbsp;
+        <%= f.label :remember_me, "Remember Me", class: "control-label col-md-4" %>
     </div>
-  <% end -%>
-                                                                                                                                        
+
+    <br/>
   <div class="form-group">
     <div class="col-md-offset-4 col-md-8">
-      <%= f.submit "Login", class: "btn btn-primary" %>
+      <%= f.submit "Login", class: "btn btn-primary btn-large" %>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-md-offset-4 col-md-8">
-      <%= render "devise/shared/links" %>
+      <%= link_to "Forgot your password?", new_password_path(:user) %><br />
+      <%= link_to "Sign in with Facebook", "/accounts/auth/facebook" %><br />
     </div>
   </div>
 
 <% end %>
+</div>
+

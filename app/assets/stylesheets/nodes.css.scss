@@ -2,11 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/* Wrapper for page content to push down footer */
 body {
   padding-top: 20px;
   padding-bottom: 60px;
+  height: 100%;
 }
-
+footer {
+  background-color: #BBBBBB;
+  height: 20px;
+  color: #000;
+}
 /* Custom container */
 .container {
   margin: 0 auto;

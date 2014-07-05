@@ -55,7 +55,7 @@
               <li class="dropdown">
                 <% if user_signed_in? %>
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Welcome, <%= current_or_guest_user.name %>
+                    Welcome, <%= current_or_guest_user.email %>
                     <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       <li><%= link_to "Edit Account", edit_user_registration_path %></li>
@@ -177,8 +177,10 @@
       <%= bootstrap_flash %>
       <%= yield %>
        <hr>
-      <footer>
-        <p>&copy; Cube Root Software 2014</p>
+      <footer class="navbar-fixed-bottom">
+        <div class="container">
+          <p>&copy; Cube Root Software 2014</p>
+        </div>
       </footer>
 
     </div> <!-- /container -->

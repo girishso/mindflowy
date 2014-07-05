@@ -79,7 +79,7 @@ MindFlowy::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   #->Prelang
-  GA.tracker = "AAAAA"
+  GA.tracker = "UA-37798927-4"
 
 end
 

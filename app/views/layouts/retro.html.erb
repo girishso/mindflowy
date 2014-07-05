@@ -49,7 +49,7 @@
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#kbd" data-toggle="modal">Keyboard Shortcuts</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right pull-right">
               <li class="dropdown">
@@ -78,6 +78,63 @@
     </div>
 
     <div class="container">
+      <div id="kbd" class="modal hide fade" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="form-signin">
+          <h3>
+          <i class="fa fa-keyboard-o fa-lg"></i>
+          </h3>
+          <table class="table table-striped">
+          <tbody><tr>
+          <td>
+          <kbd>Click</kbd>
+          </td>
+          <td>
+          an item and start typing
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <kbd>Enter</kbd>
+          </td>
+          <td>
+          add a new item
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <kbd>Tab</kbd>
+          </td>
+          <td>
+          indent
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <kbd>Shift+Tab</kbd>
+          </td>
+          <td>
+          un-indent
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <kbd>Up Arrow</kbd>
+          </td>
+          <td>
+          select item above
+          </td>
+          </tr>
+          <tr>
+          <td>
+          <kbd>Down Arrow</kbd>
+          </td>
+          <td>
+          select item bellow
+          </td>
+          </tr>
+          </tbody></table>
+        </div>
+      </div>
       <% unless user_signed_in? %>
         <div id="login" class="modal hide fade" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <%= form_for(:user, as: :user, url: session_path(:user), html: {class: "form-signin form-user", id: "sign_in_form"}) do |f| %>
@@ -178,7 +235,7 @@
       <%= yield %>
       <footer class="navbar-fixed-bottom">
         <div class="container">
-          <p>&copy; Cube Root Software 2014</p>
+          <p>Brought to you by: <a href="http://www.cuberoot.in">Cube Root Software</a> &copy; 2014</p>
         </div>
       </footer>
 
@@ -187,7 +244,18 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">ERROR!</h3>
+</div>
+<div class="modal-body">
+<p>One fine body…</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+</div>
+</div>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   </body>
 </html>

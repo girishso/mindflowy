@@ -3,6 +3,13 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
+  proxied = window.alert
+  window.alert = ->
+    $("#myModal .modal-body").text(arguments[0])
+    $("#myModal").modal('show')
+
+    #proxied.apply this, arguments
+
   $("#sign_in_form").submit (e)->
     e.preventDefault()
     $.post("/login", $(this).serialize(),( (data) ->

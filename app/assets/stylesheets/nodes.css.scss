@@ -12,6 +12,10 @@ footer {
   background-color: #BBBBBB;
   height: 20px;
   color: #000;
+  text-align: center;
+}
+footer a {
+  color: #000084;
 }
 /* Custom container */
 .container {
@@ -148,4 +152,7 @@ vertical-align: middle;
 border-bottom: 2px solid #000000;
 }
 
+kbd {
+  font-family: inherit;
+}
 

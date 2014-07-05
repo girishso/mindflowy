@@ -15,6 +15,6 @@ $.ajaxSetup(
 
 $(document).ajaxError ( event, jqxhr, settings, exception ) ->
   console.log "Error: ", exception
-  alert("Error: " + exception.message)
+  alert("Error: " + exception)
 
 

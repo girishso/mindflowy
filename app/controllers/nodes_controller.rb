@@ -4,7 +4,7 @@ class NodesController < ApplicationController
     puts user_nodes.to_json
     respond_to do |format|
       format.html
-      format.json { render json: user_nodes.to_json }
+      format.json { render json: user_nodes.to_json, status: 200 }
     end
   end
 

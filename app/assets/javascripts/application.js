@@ -19,3 +19,4 @@
 //= require bootstrap-modal
 //= require bootstrap-alert
 //= require components
+//= require nodes

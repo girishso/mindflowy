@@ -110,9 +110,37 @@ border: 1px solid #00aa8e;
 -moz-border-radius: 0;
 border-radius: 0;
 }
+
 .close {
   color: #fff !important;
 }
+
 .help-inline {
   color: #d00 !important;
 }
+
+.treeview li {
+  /*list-style-type:circle !important;*/
+  background: asset_url("circle.png") no-repeat left 7px;
+  line-height: 22px !important;
+  font-size: 18px;
+}
+
+.node {
+  margin-left: 18px;
+  outline: none;
+}
+
+[contenteditable="true"]:focus {
+  background-color: #bbbbbb;
+border: 0;
+height: 20px;
+padding: 0 0;
+font-size: 18px;
+line-height: 27px;
+color: #000000;
+vertical-align: middle;
+border-bottom: 2px solid #000000;
+}
+
+

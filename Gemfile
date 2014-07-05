@@ -5,6 +5,7 @@ ruby "2.1.1"
 gem 'rails'#, '4.0.4'
 
 group :development do
+  gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'meta_request'
 end
 # Use SCSS for stylesheets

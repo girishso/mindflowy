@@ -12,4 +12,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit
     super
   end
+
+  def create_guest
+    current_or_guest_user
+    redirect_to landings_show_url, info: "You are signed in as guest."
+  end
 end

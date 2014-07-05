@@ -1,11 +1,10 @@
 class NodesController < ApplicationController
 
   def index
-    puts current_user.nodes.arrange_serializable(order: :position).to_json
+    puts user_nodes.to_json
     respond_to do |format|
-      format.json { render json:
-        current_user.nodes.arrange_serializable(order: :position).to_json
-      }
+      format.html
+      format.json { render json: user_nodes.to_json }
     end
   end
 
@@ -21,11 +20,11 @@ class NodesController < ApplicationController
 
     if child.save
       respond_to do |format|
-        format.json { render json: {newNodeId: child.id, data: current_user.nodes.arrange_serializable(order: :position).to_json}, status: 200}
+        format.json { render json: {newNodeId: child.id, data: user_nodes.to_json}, status: 200}
       end
     else
       respond_to do |format|
-        format.json { render json: current_user.nodes.arrange_serializable(order: :position).to_json, status: :unprocessable_entity }
+        format.json { render json: user_nodes.to_json, status: :unprocessable_entity }
       end
     end
   end
@@ -35,9 +34,9 @@ class NodesController < ApplicationController
 
     respond_to do |format|
       if node.update(node_params)
-        format.json { render json: current_user.nodes.arrange_serializable(order: :position).to_json, status: 200}
+        format.json { render json: user_nodes.to_json, status: 200}
       else
-        format.json { render json: current_user.nodes.arrange_serializable(order: :position).to_json, status: :unprocessable_entity }
+        format.json { render json: user_nodes.to_json, status: :unprocessable_entity }
       end
     end
   end
@@ -56,6 +55,10 @@ class NodesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def node_params
       params.require(:node).permit(:title, :parent_id, :description, :position)
+    end
+
+    def user_nodes
+      current_or_guest_user.nodes.arrange_serializable(order: :position)
     end
 
 end

@@ -8,10 +8,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
   <% if user_signed_in? %>
-    <meta name="auth_token" content="<%= current_user.authentication_token %>" />
+    <meta name="auth_token" content="<%= current_or_guest_user.authentication_token %>" />
   <% end %>
 
     <!-- Le styles -->
@@ -56,7 +55,7 @@
               <li class="dropdown">
                 <% if user_signed_in? %>
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    Welcome, <%= current_user.email %>
+                    Welcome, <%= current_or_guest_user.name %>
                     <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       <li><%= link_to "Edit Account", edit_user_registration_path %></li>
@@ -188,6 +187,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   </body>
 </html>
 

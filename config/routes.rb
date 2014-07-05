@@ -1,5 +1,7 @@
 MindFlowy::Application.routes.draw do
   get "landings/index"
+  get "landings/show"
+
   devise_for :users, :path => 'accounts', controllers: {registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords", omniauth_callbacks: "users/omniauth_callbacks"}, skip: [:sessions, :registrations]
 
   resources :users
@@ -69,6 +71,7 @@ MindFlowy::Application.routes.draw do
     post   "signup"  => "users/registrations#create", as: :user_registration
     put    "signup"  => "users/registrations#update", as: :update_user_registration
     get    "account" => "users/registrations#edit",   as: :edit_user_registration
+    post   "create_guest"  => "users/registrations#create_guest", as: :guest_registration
   end
 
 end

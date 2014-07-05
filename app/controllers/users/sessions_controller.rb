@@ -4,7 +4,6 @@ class Users::SessionsController < Devise::SessionsController
   include ApplicationHelper
 
   def create
-    puts "sdasdsdasdada"
     super
   end
 

@@ -68,7 +68,6 @@ class ApplicationController < ActionController::Base
 
     def authenticate_user!(opts={})
     puts "in authenticate_user **************************"
-    pp opts
       opts[:scope] = :user
       warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
     end

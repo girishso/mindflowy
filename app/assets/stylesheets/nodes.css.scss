@@ -131,20 +131,27 @@ border-radius: 0;
 
 .treeview li {
   /*list-style-type:circle !important;*/
-  background: asset_url("circle.png") no-repeat left 7px;
-  line-height: 22px !important;
+  /*background: asset_url("circle.png") no-repeat left 7px;*/
+  line-height: 29px !important;
   font-size: 18px;
 }
 
+.treeview li:before {
+content: "\bb";
+font-family: dos;
+display: inline;
+}
+
 .node {
-  margin-left: 18px;
+  margin-left: 10px;
   outline: none;
+  display: inline;
 }
 
 [contenteditable="true"]:focus {
   background-color: #bbbbbb;
 border: 0;
-height: 20px;
+/*height: 20px;*/
 padding: 0 0;
 font-size: 18px;
 line-height: 27px;

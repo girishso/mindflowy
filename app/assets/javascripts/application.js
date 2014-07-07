@@ -19,4 +19,5 @@
 //= require bootstrap-modal
 //= require bootstrap-alert
 //= require components
+//= require bootstrap-386
 //= require nodes

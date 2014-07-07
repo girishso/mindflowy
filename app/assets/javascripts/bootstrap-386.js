@@ -64,11 +64,11 @@ $(function(){
         bar.style.width = column + "px";
         wrap.style.height = row + "px";
       } else {
-        cursor.style.right = column + "px";
-        cursor.style.bottom = row + "px";
+        //cursor.style.right = column + "px";
+        //cursor.style.bottom = row + "px";
       }
     }
-  }, 1);
+  }, 0.5);
 });
 
 

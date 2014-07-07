@@ -9,6 +9,7 @@ focus_node = null
   componentDidMount: ->
     that = this
     $.getJSON("/nodes", null, (d) ->
+      focus_node = d[0].id
       that.setState data: d
     )
 

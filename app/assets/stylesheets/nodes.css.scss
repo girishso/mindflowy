@@ -132,8 +132,7 @@ border-radius: 0;
 .treeview li {
   /*list-style-type:circle !important;*/
   /*background: asset_url("circle.png") no-repeat left 7px;*/
-  line-height: 29px !important;
-  font-size: 18px;
+  line-height: 1.6em !important;
 }
 
 .treeview li:before {
@@ -143,9 +142,10 @@ display: inline;
 }
 
 .node {
-  margin-left: 10px;
+  margin-left: .5em;
   outline: none;
   display: inline;
+  font-size: 1em;
 }
 
 [contenteditable="true"]:focus {
@@ -153,8 +153,8 @@ display: inline;
 border: 0;
 /*height: 20px;*/
 padding: 0 0;
-font-size: 18px;
-line-height: 27px;
+font-size: 1em;
+line-height: 1em;
 color: #000000;
 vertical-align: middle;
 border-bottom: 2px solid #000000;

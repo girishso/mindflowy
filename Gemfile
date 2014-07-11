@@ -7,7 +7,11 @@ gem 'rails'#, '4.0.4'
 group :development do
   gem 'rails-footnotes', '>= 4.0.0', '<5'
   gem 'meta_request'
+  gem "erb2haml"
 end
+
+gem "haml-rails"
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
 gem "font-awesome-rails"

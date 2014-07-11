@@ -21,12 +21,17 @@ footer a {
 /* Custom container */
 .container {
   margin: 0 auto;
-  max-width: 1000px;
+  width: 100%!important;
 }
 .container > hr {
   margin: 60px 0;
 }
-
+.navbar-inverse .navbar-inner {
+  margin: 0 20px;
+}
+.navbar {
+  background-color: #bbbbbb;
+}
 /* Main marketing message and sign up button */
 .jumbotron {
   margin: 80px 0;
@@ -140,7 +145,12 @@ content: "\bb";
 font-family: dos;
 display: inline;
 }
-
+#tree {
+  padding: 19px 29px 29px;
+  margin: 20px;
+  min-height: 800px;
+  border: 4px double #e5e5e5;
+}
 .node {
   margin-left: .5em;
   outline: none;

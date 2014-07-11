@@ -1,0 +1,64 @@
+- unless user_signed_in?
+  #login.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "0"}
+    = form_for(:user, as: :user, url: session_path(:user), html: {class: "form-signin form-user", id: "sign_in_form"}) do |f|
+      .page-header
+        %h1.form-signin-heading Please sign in
+      .form-group
+        = f.label :login, "Username or Email", class: "control-label col-md-4"
+        .col-md-8
+          = f.text_field :login, class: "text-field input-block-level form-control", html: {spellcheck: "false"}
+      .form-group
+        = f.label :password, class: "control-label col-md-4"
+        .col-md-8
+          = f.password_field :password, class: "text-field input-block-level form-control", html: {autocomplete: "off"}
+      .form-group
+        = f.check_box :remember_me
+        = f.label :remember_me, " Remember Me", class: "control-label col-md-4"
+      %br/
+      .form-group
+        .col-md-offset-4.col-md-8
+          = f.submit "Login", class: "btn btn-primary btn-large"
+      .form-group
+        .col-md-offset-4.col-md-8
+          = link_to "Forgot your password?", new_password_path(:user)
+          %br/
+          = link_to "Sign in with Facebook", "/accounts/auth/facebook"
+          %br/
+  #signup.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "0"}
+    = form_for(:user, as: :user, url: registration_path(:user), html: {class: "form-signin form-user"}) do |f|
+      .page-header
+        %h1.form-signin-heading Please sign up
+      .form-group
+        = f.label :username, class: "control-label col-md-4"
+        .col-md-8
+          = f.text_field :username, class: "text-field input-block-level form-control", html: {spellcheck: "false"}
+      .form-group
+        = f.label :email, class: "control-label col-md-4"
+        .col-md-8
+          = f.email_field :email, class: "text-field input-block-level form-control", html: {spellcheck: "false"}
+      .form-group
+        = f.label :password, class: "control-label col-md-4"
+        .col-md-8
+          = f.password_field :password, class: "text-field input-block-level form-control", html: {autocomplete: "off"}
+      .form-group
+        = f.label :password_confirmation, "Password Confirmation", class: "control-label col-md-4"
+        .col-md-8
+          = f.password_field :password_confirmation, class: "text-field input-block-level form-control", html: {autocomplete: "off"}
+      .form-group
+        .col-md-offset-4.col-md-8
+          = f.submit "Sign Up", class: "btn btn-primary btn-large"
+      .form-group
+        .col-md-offset-4.col-md-8
+          = link_to "Sign in with Facebook", "/accounts/auth/facebook"
+          %br/
+
+
+#myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3#myModalLabel ERROR!
+  .modal-body
+    %p One fine body…
+  .modal-footer
+    %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
+

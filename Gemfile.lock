@@ -144,13 +144,8 @@ GEM
       sprockets-rails (~> 2.0)
     rails-footnotes (4.0.2)
       rails (>= 3.2)
-    rails_12factor (0.0.2)
-      rails_serve_static_assets
-      rails_stdout_logging
     rails_config (0.4.2)
       activesupport (>= 3.0)
-    rails_serve_static_assets (0.0.2)
-    rails_stdout_logging (0.0.3)
     railties (4.1.4)
       actionpack (= 4.1.4)
       activesupport (= 4.1.4)
@@ -230,7 +225,6 @@ DEPENDENCIES
   quiet_assets
   rails
   rails-footnotes (>= 4.0.0, < 5)
-  rails_12factor
   rails_config
   react-rails!
   sass-rails (~> 4.0.2)

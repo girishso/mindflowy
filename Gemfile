@@ -26,7 +26,7 @@ gem 'react-rails', github: "reactjs/react-rails"
 gem 'therubyracer', platforms: :ruby
 
 group :production do
-  gem 'rails_12factor'
+  #gem 'rails_12factor'
 end
 
 # Use jquery as the JavaScript library

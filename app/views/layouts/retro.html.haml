@@ -47,7 +47,7 @@
               %li.dropdown
                 - if user_signed_in?
                   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                    Welcome, #{current_or_guest_user.email}
+                    Welcome, #{current_or_guest_user.name}
                     %b.caret
                   %ul.dropdown-menu
                     %li= link_to "Edit Account", edit_user_registration_path

@@ -24,6 +24,8 @@ gem 'ancestry'
 gem 'react-rails', github: "reactjs/react-rails"
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
+gem 'sprockets-commonjs', github: "maccman/sprockets-commonjs"
+gem "bower-rails", "~> 0.7.3"
 
 group :production do
   #gem 'rails_12factor'

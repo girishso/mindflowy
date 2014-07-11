@@ -1,19 +1,24 @@
-<div class="jumbotron">
-  <h1>MindFlowy</h1>
-  <h2>Your Digital Brain</h2>
-  <br/>
-  <p class="lead">
-
-    Take control by visualizing all your open loops, tasks, and ideas in your Brain.
+<% if user_signed_in? %>
+  <div id="tree" lang="klingon"
+              spellcheck="false">
+    <%= react_component 'TreeView' %>
+  </div>
+<% else %>
+  <div class="jumbotron">
+    <h1>MindFlowy</h1>
+    <h2>Your Digital Brain</h2>
     <br/>
-    MindFLowy is a simple Tool to make nested lists, take notes that allows text to be organized into discrete sections.
-  </p>
-  <br/>
-  <br/>
-  <p>
-    <%= link_to "Give it a try!", guest_registration_path, method: :post, class: "btn btn-primary btn-large" %>
-    No sign-up required.
-  </p>
-</div>
+    <p class="lead">
 
-
+      Take control by visualizing all your open loops, tasks, and ideas in your Brain.
+      <br/>
+      MindFLowy is a simple Tool to make nested lists, take notes that allows text to be organized into discrete sections.
+    </p>
+    <br/>
+    <br/>
+    <p>
+      <%= link_to "Give it a try!", guest_registration_path, method: :post, class: "btn btn-primary btn-large" %>
+      No sign-up required.
+    </p>
+  </div>
+<% end %>

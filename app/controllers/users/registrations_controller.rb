@@ -15,6 +15,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create_guest
     current_or_guest_user
-    redirect_to landings_show_url, info: "You are signed in as guest."
+    redirect_to root_url, info: "You are signed in as guest."
   end
 end

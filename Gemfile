@@ -34,6 +34,9 @@ gem "bower-rails", "~> 0.7.3"
 group :production do
   #gem 'rails_12factor'
 end
+gem "oj"
+gem 'oj_mimic_json'
+gem 'fast_blank'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

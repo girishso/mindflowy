@@ -37,12 +37,10 @@
           %a.brand{:href => "/"} MindFlowy
           .nav-collapse.collapse
             %ul.nav
-              %li.active
-                %a{:href => "#"} Home
-              %li
-                %a{:href => "#about"} About
-              %li
-                %a{"data-toggle" => "modal", :href => "#kbd"} Keyboard Shortcuts
+              %li{:class => controller.action_name == "index" ? 'active' : nil}
+                %a{:href => "/"} Home
+              %li{:class => controller.action_name == "about" ? 'active' : nil}
+                %a{:href => "#{about_path}"} About
             %ul.nav.navbar-nav.navbar-right.pull-right
               %li.dropdown
                 - if user_signed_in?
@@ -67,8 +65,9 @@
     .container
 
       = render partial: "elements/modals"
+
       .row-fluid
-        - if user_signed_in?
+        - if user_signed_in? && controller.controller_name == "landings" && controller.action_name != "about"
           .span4
             = render partial: "elements/kbd"
           .span8

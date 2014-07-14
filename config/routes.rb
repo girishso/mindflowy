@@ -1,6 +1,6 @@
 MindFlowy::Application.routes.draw do
   get "landings/index"
-  get "landings/show"
+  get "landings/about", as: "about"
 
   devise_for :users, :path => 'accounts', controllers: {registrations: "users/registrations", sessions: "users/sessions", passwords: "users/passwords", omniauth_callbacks: "users/omniauth_callbacks"}, skip: [:sessions, :registrations]
 

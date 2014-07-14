@@ -68,47 +68,19 @@
 
       = render partial: "elements/modals"
       .row-fluid
-        .span4
-          - if user_signed_in?
-            #kbd
-              .form-signin
-                %h3
-                  %i.fa.fa-keyboard-o.fa-lg
-                %table.table.table-striped
-                  %tbody
-                    %tr
-                      %td
-                        %kbd Click
-                      %td
-                        an item and start typing
-                    %tr
-                      %td
-                        %kbd Enter
-                      %td
-                        add a new item
-                    %tr
-                      %td
-                        %kbd Tab
-                      %td
-                        indent
-                    %tr
-                      %td
-                        %kbd Shift+Tab
-                      %td
-                        un-indent
-                    %tr
-                      %td
-                        %kbd Up Arrow
-                      %td
-                        select item above
-                    %tr
-                      %td
-                        %kbd Down Arrow
-                      %td
-                        select item bellow
-        .span8
-          = bootstrap_flash
-          = yield
+        - if user_signed_in?
+          .span4
+            = render partial: "elements/kbd"
+          .span8
+            = bootstrap_flash
+            = yield
+        - else
+          .span2
+          .span8
+            = bootstrap_flash
+            = yield
+          .span2
+
       %footer.navbar.navbar-inverse.navbar-fixed-bottom
         .container
           By:

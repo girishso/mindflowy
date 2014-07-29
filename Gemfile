@@ -32,7 +32,7 @@ gem 'sprockets-commonjs', github: "maccman/sprockets-commonjs"
 gem "bower-rails", "~> 0.7.3"
 
 group :production do
-  #gem 'rails_12factor'
+  gem 'rails_12factor'
 end
 gem "oj"
 gem 'oj_mimic_json'

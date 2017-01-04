@@ -21,6 +21,13 @@ module MindFlowy
     # config.i18n.default_locale = :de
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
     # Precompile additional assets
-    config.assets.precompile += %w( .svg .eot .woff .ttf ) 
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
+
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :options]
+      end
+    end
   end
 end

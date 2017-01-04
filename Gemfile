@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-ruby "2.1.7"
+# ruby "2.1.7"
+ruby "2.1.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'#, '4.0.4'
@@ -20,6 +21,7 @@ gem "font-awesome-rails"
 gem 'uglifier', '>= 1.3.0'
 gem "pg"
 gem 'unicorn'
+gem 'rack-cors', :require => 'rack/cors'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
@@ -77,6 +79,11 @@ gem 'google-analytics-rails'
 gem 'validates_formatting_of'
 
 group :development do
+  # gem 'pry'
+  # gem 'pry-byebug'
+  # gem 'byebug'
+  # gem 'pry-rescue'
+  # gem 'pry-stack_explorer'
   # gem 'pry-rails'
   gem 'better_errors'
 end

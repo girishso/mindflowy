@@ -9,6 +9,7 @@ class NodesController < ApplicationController
   end
 
   def create
+    puts params.to_yaml
     if params[:parent_id].present?
       node = Node.find params[:parent_id]
       child = node.children.new position: params[:position]

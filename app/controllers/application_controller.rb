@@ -1,12 +1,13 @@
 class ApplicationController < ActionController::Base
   layout "retro"
 
-  before_filter :authenticate_user_from_token!
-  before_action :authenticate_user!
-
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
+  skip_before_filter :verify_authenticity_token
+
+  before_filter :authenticate_user_from_token2!
+  before_action :authenticate_user!
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
   helper_method :current_or_guest_user
@@ -71,17 +72,28 @@ class ApplicationController < ActionController::Base
       opts[:scope] = :user
       warden.authenticate!(opts) if !devise_controller? || opts.delete(:force)
     end
+def log_headers
+  http_envs = {}.tap do |envs|
+    request.headers.each do |key, value|
+      envs[key] = value if key.downcase.starts_with?('http')
+    end
+  end
 
+  logger.info "Received #{request.method.inspect} to #{request.url.inspect} from #{request.remote_ip.inspect}. Processing with headers #{http_envs.inspect} and params #{params.inspect}"
+end
     # For this example, we are simply using token authentication
     # via parameters. However, anyone could use Rails's token
     # authentication features to get the token from a header.
-    def authenticate_user_from_token!
+    def authenticate_user_from_token2!
       puts request.format
       return true if request.format != "application/json"
+      log_headers
 
       authenticate_or_request_with_http_token do |token, options|
+        puts "#"*40
         # User.find_by(auth_token: token)
         user       = token && User.find_by_authentication_token(token.to_s)
+        # puts user.to_yaml
         if user
           sign_in user, store: false
         end
